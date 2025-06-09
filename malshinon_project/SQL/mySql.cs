@@ -2,7 +2,7 @@
 using MySql.Data.MySqlClient;
 namespace malshinon
 {
-    public class Class1
+    public class MySql
     {
         static string connectionString = "Server=localhost;Database=malshinon;User=root;Password='';"
         public MySqlConnection connection;
