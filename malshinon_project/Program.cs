@@ -11,6 +11,8 @@
             //Console.WriteLine(dalpepole.Check(fullname));
             //Pepole x = dalpepole.creatNewPepole(fullname);
             //dalpepole.addNumReports(x);
+            Menue menue = new Menue();
+            menue.InsertingAlert();
         }
     }
 }
