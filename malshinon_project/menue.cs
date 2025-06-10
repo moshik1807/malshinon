@@ -40,6 +40,7 @@ namespace malshinon
                 dalpepole.AddPersonToTable(reporterName, "reporter");
                 reporter = dalpepole.CreatingLocalPerson(reporterName);
             }
+            dalpepole.addNumReports(reporter);
             Console.WriteLine("Enter information about the goal: ");
             List<string> targetName = EnterFullName();
             Pepole target = dalpepole.FindByFuulName(targetName);
@@ -48,6 +49,7 @@ namespace malshinon
                 dalpepole.AddPersonToTable(targetName, "target");
                 target = dalpepole.CreatingLocalPerson(targetName);
             }
+            dalpepole.addNumMentions(target);
             string report = EnterReport();
             dalreports.insertReport(reporter, target, report);
 
