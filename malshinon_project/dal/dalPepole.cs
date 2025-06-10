@@ -12,23 +12,12 @@ namespace malshinon
         {
             MYsql = mySql;
         }
-        //להעביר למיין
-        public List<string> EnterFullName()
-        {
-            List<string> fullName = new List<string>();
-            Console.WriteLine("enter first name");
-            string first = Console.ReadLine();
-            fullName.Add(first);
-            Console.WriteLine("enter last name");
-            string last = Console.ReadLine();
-            fullName.Add(last);
-            return fullName;
-        }
+      
 
         //בודקת אם יש אותו ברשימה
-        public bool Check(List<string> fullName)
+        public Pepole FindByFuulName(List<string> fullName)
         {
-            bool result = false;
+            Pepole pepole = null;
             try
             {
                 MySqlConnection conn = MYsql.GetConnection();
@@ -37,12 +26,21 @@ namespace malshinon
                 cmd.Parameters.AddWithValue("@lastname", fullName[1]);
                 var reader = cmd.ExecuteReader();
                 result = reader.Read();
-                return result;
+                if (reader.Read())
+                {
+                    int id = reader.GetInt32("id");
+                    string firstName = reader.GetString("first_name");
+                    string lastName = reader.GetString("last_name");
+                    string secretCode = reader.GetString("secret_code");
+                    string type = reader.GetString("type");
+                    pepole = new Pepole(id, firstName, secretCode, lastName, type);
+                }
+                return pepole;
             }
             catch (MySqlException ex)
             {
                 Console.WriteLine($"Error:{ex.Message}");
-                return result;
+                return pepole;
             }
             finally
             {
@@ -65,6 +63,7 @@ namespace malshinon
                 cmd.Parameters.AddWithValue("@type", type);
                 int reader = cmd.ExecuteNonQuery();
 
+
             }
             catch (MySqlException ex)
             {
@@ -77,7 +76,8 @@ namespace malshinon
         }
 
         //יצירת אוביייקט מתוך הבסיס נתונים
-        public Pepole creatNewPepole(List<string> fullName)
+ //
+        public Pepole CreatingLocalPerson(List<string> fullName)
         {
             Pepole pepole = null;
             try
