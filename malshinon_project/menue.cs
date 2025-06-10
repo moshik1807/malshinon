@@ -33,15 +33,23 @@ namespace malshinon
         public void InsertingAlert()
         {
 
-            List<string> fuulName = EnterFullName();
-            Pepole reporter = dalpepole.FindByFuulName(fuulName); 
+            List<string> reporterName = EnterFullName();
+            Pepole reporter = dalpepole.FindByFuulName(reporterName); 
             if (reporter == null)
             {
-                dalpepole.AddPerson(fuulName, "reporter");
-                reporter = dalpepole.CreatingLocalPerson(fuulName);
+                dalpepole.AddPersonToTable(reporterName, "reporter");
+                reporter = dalpepole.CreatingLocalPerson(reporterName);
             }
-            
-
+            Console.WriteLine("Enter information about the goal: ");
+            List<string> targetName = EnterFullName();
+            Pepole target = dalpepole.FindByFuulName(targetName);
+            if (target == null)
+            {
+                dalpepole.AddPersonToTable(targetName, "target");
+                target = dalpepole.CreatingLocalPerson(targetName);
+            }
+            string report = EnterReport();
+            dalreports.insertReport(reporter, target, report);
 
         }
     }

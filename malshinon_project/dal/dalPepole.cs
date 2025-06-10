@@ -25,7 +25,6 @@ namespace malshinon
                 cmd.Parameters.AddWithValue("@firstname", fullName[0]);
                 cmd.Parameters.AddWithValue("@lastname", fullName[1]);
                 var reader = cmd.ExecuteReader();
-                result = reader.Read();
                 if (reader.Read())
                 {
                     int id = reader.GetInt32("id");
@@ -48,10 +47,12 @@ namespace malshinon
             }
         }
 
-        //מייצרת אדם חדש ומוסיפה לטבלה
-        public void AddPerson(List<string> fullName, string type)
+        // מייצרת אדם חדש ומוסיפה לטבלה ומחזירה אובייקט 
+        public bool AddPersonToTable(List<string> fullName, string type)
         {
-            string secretCode = fullName[0].ToString() + fullName[1].ToString();
+            bool x = false;
+            Pepole pepole = null;
+            string SecretCode = fullName[0].ToString() + fullName[1].ToString();
             try
             {
                 MySqlConnection conn = MYsql.GetConnection();
@@ -59,15 +60,15 @@ namespace malshinon
                              VALUES(@first_name,@last_name,@secret_code,@type)", conn);
                 cmd.Parameters.AddWithValue("@first_name", fullName[0]);
                 cmd.Parameters.AddWithValue("@last_name", fullName[1]);
-                cmd.Parameters.AddWithValue("@secret_code", secretCode);
+                cmd.Parameters.AddWithValue("@secret_code", SecretCode);
                 cmd.Parameters.AddWithValue("@type", type);
-                int reader = cmd.ExecuteNonQuery();
-
-
+                var reader = cmd.ExecuteReader();
+                return reader.Read();
             }
             catch (MySqlException ex)
             {
                 Console.WriteLine($"Error:{ex.Message}");
+                return x;
             }
             finally
             {
@@ -75,8 +76,7 @@ namespace malshinon
             }
         }
 
-        //יצירת אוביייקט מתוך הבסיס נתונים
- //
+        //  יצירת אוביייקט מתוך הבסיס נתונים והחזרת אובייקט
         public Pepole CreatingLocalPerson(List<string> fullName)
         {
             Pepole pepole = null;
