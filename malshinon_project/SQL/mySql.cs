@@ -4,12 +4,12 @@ namespace malshinon
 {
     public class MySql
     {
-        static string connectionString = "Server=localhost;Database=malshinon;User=root;Password='';"
+        static string connectionString = "Server=localhost;Database=malshinon;User=root;Password='';";
         public MySqlConnection connection;
 
         public void Connect()
         {
-            var conn = new MySqlConnection(connectionString)
+            var conn = new MySqlConnection(connectionString);
             connection = conn;
             try
             {
@@ -27,7 +27,7 @@ namespace malshinon
         {
             try
             {
-                var conn = new MySqlConnection(connectionStrimg);
+                var conn = new MySqlConnection(connectionString);
                 connection = conn;
                 connection.Open();
                 return connection;
@@ -40,7 +40,7 @@ namespace malshinon
         }
         public void close()
         {
-            var conn = new MySqlConnection(connectionStrimg);
+            var conn = new MySqlConnection(connectionString);
             connection = conn;
             connection.Close();
         }
