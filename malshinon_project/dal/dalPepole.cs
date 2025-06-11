@@ -54,7 +54,8 @@ namespace malshinon
         {
             bool x = false;
             Pepole pepole = null;
-            string SecretCode = fullName[0].ToString() + fullName[1].ToString();
+            Random rnd = new Random();
+            string SecretCode = $" {fullName[0].ToString()}{rnd.Next(1234,5678)}";
             try
             {
                 MySqlConnection conn = MYsql.GetConnection();
@@ -115,7 +116,8 @@ namespace malshinon
         }
 
 
-        //הוספה למספר דיווחים שהגיעו מאדם מסויים
+        //הוספה למספר איזכורים על מטרה מסויימת
+
         public void addNumReports(Pepole pepole)
         {
             try
@@ -132,10 +134,10 @@ namespace malshinon
             {
                 MYsql.close();
             }
-
+            
         }
 
-        //הוספה למספר איזכורים על מטרה מסויימת
+        //הוספה למספר דיווחים שהגיעו מאדם מסויים
         public void addNumMentions(Pepole pepole)
         {
             try
