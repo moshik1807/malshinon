@@ -29,7 +29,7 @@ namespace malshinon
         }
 
 
-
+        //מקבלת שם מלא של המודיע ואת פרטי המטרה ואת ההתראה ומוסיפה
         public void InsertingAlert()
         {
 
@@ -70,6 +70,10 @@ namespace malshinon
             string report = EnterReport();
             dalreports.insertReport(reporter, target, report);
 
+            Console.WriteLine($"reporter:{reporter.FirstName} {reporter.LestName}\n" +
+                $"report the message:\n" +
+                $"{report}\n" +
+                $"On target:{target.FirstName} {target.LestName}");
         }
     }
 }
