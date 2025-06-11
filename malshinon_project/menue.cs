@@ -1,12 +1,27 @@
 ﻿using System;
 namespace malshinon
 {
-    public class Menue
+    public class Menu
     {
         static public MySql mysql = new MySql();
         static public DalPepole dalpepole = new DalPepole(mysql);
         static public DalReports dalreports = new DalReports(mysql);
         static public DalUpdates dalUpdates = new DalUpdates(mysql);
+
+        public void menu()
+        {
+            Console.WriteLine("To create an alert, press 1.");
+            int coice = int.Parse(Console.ReadLine());
+            switch (coice)
+            {
+                case 1:
+                    InsertingAlert();
+                    break;
+                default:
+                    break;     
+            }
+        }
+
 
         public List<string> EnterFullName()
         {

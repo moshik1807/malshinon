@@ -16,7 +16,6 @@ namespace malshinon
             Text = text;
             Timestamp = timestamp;
         }
-
     }
 }
 
