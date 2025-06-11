@@ -4,8 +4,8 @@ namespace malshinon
 {
     public class MySql
     {
-        static  string connectionString = "Server=localhost;Database=malshinon;User=root;Password='';";
-        public MySqlConnection connection;
+        static private  string connectionString = "Server=localhost;Database=malshinon;User=root;Password='';";
+        private MySqlConnection connection;
 
         public void Connect()
         {
