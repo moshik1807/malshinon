@@ -75,8 +75,12 @@ namespace malshinon
                 {
                     sumreportsLengths += report.Text.Length;
                 }
+                return (AverageCalculation(numReports, sumreportsLengths) >= 100);
             }
-            return (AverageCalculation(sumreportsLengths, numReports) >= 100);
+            else
+            {
+                return false;
+            }
         }
         
 
@@ -103,7 +107,7 @@ namespace malshinon
         // זורקת ההתראה במקרה שיש יותר מ20 התראות על מטרה מסויימת
         public void DangerWarning(Pepole target)
         {
-            if (target.NumReports > 19)
+            if (target.NumReports >= 19)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Danger!!!!!!");

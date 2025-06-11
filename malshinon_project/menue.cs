@@ -44,10 +44,14 @@ namespace malshinon
             {
                 dalUpdates.updateTypeToReporter(reporter);
             }
-            dalpepole.addNumReports(reporter);
+            dalpepole.addNumMentions(reporter);
             if (dalUpdates.averageReports(reporter))
             {
                 dalUpdates.updateTypeToTarget(reporter);
+            }
+            if (dalUpdates.averageReports(reporter))
+            {
+                dalUpdates.updateTypeToReporterToAgent(reporter);
             }
             Console.WriteLine("Enter information about the goal: ");
             List<string> targetName = EnterFullName();
@@ -61,7 +65,7 @@ namespace malshinon
             {
                 dalUpdates.updateTypeToTarget(target);
             }
-            dalpepole.addNumMentions(target);
+            dalpepole.addNumReports(target);
             dalUpdates.DangerWarning(target);
             string report = EnterReport();
             dalreports.insertReport(reporter, target, report);
