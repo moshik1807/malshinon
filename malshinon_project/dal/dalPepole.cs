@@ -14,7 +14,7 @@ namespace malshinon
         }
       
 
-        //בודקת אם יש אותו ברשימה
+        // בודקת אם יש אותו ברשימה ובמידה וכן מחזירה אותו
         public Pepole FindByFuulName(List<string> fullName)
         {
             Pepole pepole = null;
@@ -32,7 +32,9 @@ namespace malshinon
                     string lastName = reader.GetString("last_name");
                     string secretCode = reader.GetString("secret_code");
                     string type = reader.GetString("type");
-                    pepole = new Pepole(id, firstName, secretCode, lastName, type);
+                    int numReports = reader.GetInt32("num_reports");
+                    int numMentions = reader.GetInt32("num_mentions");
+                    pepole = new Pepole(id, firstName, secretCode, lastName, type,numReports,numMentions);
                 }
                 return pepole;
             }
@@ -94,7 +96,9 @@ namespace malshinon
                     string lastName = reader.GetString("last_name");
                     string secretCode = reader.GetString("secret_code");
                     string type = reader.GetString("type");
-                    pepole = new Pepole(id, firstName, secretCode, lastName, type);
+                    int numReports = reader.GetInt32("num_reports");
+                    int numMentions = reader.GetInt32("num_mentions");
+                    pepole = new Pepole(id, firstName, secretCode, lastName, type,numReports,numMentions);
                 }
 
                 return pepole;
