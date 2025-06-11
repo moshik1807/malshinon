@@ -18,7 +18,7 @@ namespace malshinon
                     InsertingAlert();
                     break;
                 default:
-                    break;     
+                    break;
             }
         }
 
