@@ -6,9 +6,8 @@ namespace malshinon
         static public MySql mysql = new MySql();
         static public DalPepole dalpepole = new DalPepole(mysql);
         static public DalReports dalreports = new DalReports(mysql);
-        static public CalculationFunctions calculationFunctions = new CalculationFunctions(mysql);
+        static public DalUpdates dalUpdates = new DalUpdates(mysql);
 
-        //להעביר למיין
         public List<string> EnterFullName()
         {
             List<string> fullName = new List<string>();
@@ -43,9 +42,13 @@ namespace malshinon
             }
             else
             {
-                calculationFunctions.updateTypeToReporter(reporter);
+                dalUpdates.updateTypeToReporter(reporter);
             }
             dalpepole.addNumReports(reporter);
+            if (dalUpdates.averageReports(reporter))
+            {
+                dalUpdates.updateTypeToTarget(reporter);
+            }
             Console.WriteLine("Enter information about the goal: ");
             List<string> targetName = EnterFullName();
             Pepole target = dalpepole.FindByFuulName(targetName);
@@ -56,9 +59,10 @@ namespace malshinon
             }
             else
             {
-                calculationFunctions.updateTypeToTarget(target);
+                dalUpdates.updateTypeToTarget(target);
             }
             dalpepole.addNumMentions(target);
+            dalUpdates.DangerWarning(target);
             string report = EnterReport();
             dalreports.insertReport(reporter, target, report);
 

@@ -8,7 +8,7 @@ namespace malshinon
         public int TargetId { get; set; }
         public string Text { get; set; }
         public DateTime Timestamp { get; set; }
-        public Intelreports(int id, int reporterId, int targetId, DateTime timestamp, string text)
+        public Intelreports(int id, int reporterId, int targetId, string text,DateTime timestamp)
         {
             Id = id;
             ReporterId = reporterId;
@@ -16,10 +16,7 @@ namespace malshinon
             Text = text;
             Timestamp = timestamp;
         }
-        //public Intelreports(string text)
-        //{
-        //    Text = text;
-        //}
+
     }
 }
 
