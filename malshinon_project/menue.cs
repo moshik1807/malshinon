@@ -6,6 +6,7 @@ namespace malshinon
         static public MySql mysql = new MySql();
         static public DalPepole dalpepole = new DalPepole(mysql);
         static public DalReports dalreports = new DalReports(mysql);
+        static public CalculationFunctions calculationFunctions = new CalculationFunctions(mysql);
 
         //להעביר למיין
         public List<string> EnterFullName()
@@ -40,6 +41,10 @@ namespace malshinon
                 dalpepole.AddPersonToTable(reporterName, "reporter");
                 reporter = dalpepole.CreatingLocalPerson(reporterName);
             }
+            else
+            {
+                calculationFunctions.updateTypeToReporter(reporter);
+            }
             dalpepole.addNumReports(reporter);
             Console.WriteLine("Enter information about the goal: ");
             List<string> targetName = EnterFullName();
@@ -48,6 +53,10 @@ namespace malshinon
             {
                 dalpepole.AddPersonToTable(targetName, "target");
                 target = dalpepole.CreatingLocalPerson(targetName);
+            }
+            else
+            {
+                calculationFunctions.updateTypeToTarget(target);
             }
             dalpepole.addNumMentions(target);
             string report = EnterReport();
