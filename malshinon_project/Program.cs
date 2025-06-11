@@ -4,8 +4,8 @@
     {
         static void Main()
         {
-            Menue menue = new Menue();
-            menue.InsertingAlert();
+            Menu menu = new Menu();
+            menu.menu();
         }
     }
 }

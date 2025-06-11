@@ -21,16 +21,5 @@ namespace malshinon
             NumReports = numReports;
             NumMentions = numMentions;
         }
-
-        public Pepole(string firstName, string secretCode, string lestName, string type)
-        {
-            FirstName = firstName;
-            LestName = lestName;
-            SecretCode = secretCode;
-            Type = type;
-        }
-
-
-
     }
 }
