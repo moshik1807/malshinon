@@ -68,6 +68,37 @@ namespace malshinon
             }
         }
 
+        public List<Intelreports> ListOfAllReportsAboutTarget(Pepole target)
+        {
+            List<Intelreports> reports = new List<Intelreports>();
+            try
+            {
+                MySqlConnection conn = MYsql.GetConnection();
+                MySqlCommand cmd = new MySqlCommand($"SELECT * FROM intelreports WHERE target_id = {target.Id}", conn);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32("id");
+                    int reporterId = reader.GetInt32("reporter_id");
+                    int targetId = reader.GetInt32("target_id");
+                    string text = reader.GetString("text");
+                    DateTime timestampext = reader.GetDateTime("timestamp");
+                    Intelreports intelreports = new Intelreports(id, reporterId, targetId, text, timestampext);
+                    reports.Add(intelreports);
+                }
+                return reports;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Error:{ex.Message}");
+                return reports;
+            }
+            finally
+            {
+                MYsql.close();
+            }
+        }
+
 
     }
 }

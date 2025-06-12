@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 namespace malshinon
 {
     public class Menu
@@ -10,19 +11,37 @@ namespace malshinon
 
         public void menu()
         {
-            Console.WriteLine("To create an alert, press 1.");
-            int coice = int.Parse(Console.ReadLine());
-            switch (coice)
+            bool exit = false;
+            while (!exit)
             {
-                case 1:
-                    InsertingAlert();
-                    break;
-                default:
-                    break;
-            }
+                Console.WriteLine("To create an alert, press 1.\n" +
+                    "To get all reports about target by fullname press 2\n" +
+                    "To get all optiona lAgents secret name press 3. \n" +
+                    "To Exis, press 5.");
+                int coice = int.Parse(Console.ReadLine());
+                switch (coice)
+                {
+                    case 1:
+                        InsertingAlert();
+                        break;
+                    case 2:
+                        PrintAllReportsByName();
+                        break;
+                    case 3:
+                        PrintAllOptionalAgents();
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        exit = true;
+                        break;
+                    default:
+                        break;
+                }
+            }   
         }
 
-
+        // מקבלת שם מלא מהמשתמש
         public List<string> EnterFullName()
         {
             List<string> fullName = new List<string>();
@@ -89,6 +108,44 @@ namespace malshinon
                 $"report the message:\n" +
                 $"{report}\n" +
                 $"On target:{target.FirstName} {target.LestName}");
+        }
+
+
+
+        // מחזירה את כל ההתראות על אדם מסויים
+        public void PrintAllReportsByName()
+        {
+            List<string> fullName = EnterFullName();
+            Pepole target = dalpepole.FindByFuulName(fullName);
+            if (target != null)
+            {
+                List<Intelreports> reports = dalreports.ListOfAllReportsAboutTarget(target);
+                foreach (var report in reports)
+                {
+                    Console.WriteLine(report.Text);
+                }
+            }
+            else
+            {
+                Console.WriteLine("There is no such thing as a goal.");
+            }
+        }
+
+
+        public void PrintAllOptionalAgents()
+        {
+            List<string> OptionalAgents = dalpepole.ReturnAllOptionalAgentsSecretCode();
+            if (OptionalAgents == null)
+            {
+                Console.WriteLine("no optional agents");
+            }
+            else
+            {
+                foreach(string Agents in OptionalAgents)
+                {
+                    Console.WriteLine(Agents);
+                }
+            }
         }
     }
 }

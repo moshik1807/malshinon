@@ -49,7 +49,7 @@ namespace malshinon
             }
         }
 
-        // מייצרת אדם חדש ומוסיפה לטבלה ומחזירה אובייקט 
+        //bool מייצרת אדם חדש ומוסיפה לטבלה ומחזירה  
         public bool AddPersonToTable(List<string> fullName, string type)
         {
             bool x = false;
@@ -117,7 +117,6 @@ namespace malshinon
 
 
         //הוספה למספר איזכורים על מטרה מסויימת
-
         public void addNumReports(Pepole pepole)
         {
             try
@@ -155,9 +154,39 @@ namespace malshinon
                 MYsql.close();
             }
         }
-        
 
-        
+
+        // מחזירה את כל השמות הסודיים של סוכן
+        public List<string> ReturnAllOptionalAgentsSecretCode()
+        {
+            List<string> OptionalAgentsSecretCode = null;
+            try
+            {
+                MySqlConnection conn = MYsql.GetConnection();
+                MySqlCommand cmd = new MySqlCommand($"SELECT secret_code FROM pepole WHERE type = 'potential_agent'", conn);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string SecretCode = reader.GetString("secret_code");
+                    OptionalAgentsSecretCode.Add(SecretCode);
+                }
+                return OptionalAgentsSecretCode;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Error:{ex.Message}");
+                return OptionalAgentsSecretCode;
+
+            }
+            finally
+            {
+                MYsql.close();
+            }
+        }
+
+
+
+
 
     }
 }
