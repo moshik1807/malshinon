@@ -22,7 +22,7 @@ namespace malshinon
                 switch (coice)
                 {
                     case 1:
-                        InsertingAlert();
+                        NewAlert();
                         break;
                     case 2:
                         PrintAllReportsByName();
@@ -31,6 +31,7 @@ namespace malshinon
                         PrintAllOptionalAgents();
                         break;
                     case 4:
+                        PrintsAllDangerous();
                         break;
                     case 5:
                         exit = true;
@@ -64,7 +65,7 @@ namespace malshinon
 
 
         //מקבלת שם מלא של המודיע ואת פרטי המטרה ואת ההתראה ומוסיפה
-        public void InsertingAlert()
+        public void NewAlert()
         {
 
             List<string> reporterName = EnterFullName();
@@ -130,7 +131,7 @@ namespace malshinon
                 Console.WriteLine("There is no such thing as a goal.");
             }
         }
-
+        
 
         public void PrintAllOptionalAgents()
         {
@@ -145,6 +146,24 @@ namespace malshinon
                 {
                     Console.WriteLine(Agents);
                 }
+            }
+        }
+
+        public void PrintsAllDangerous()
+        {
+            bool resulte = false;
+            List<Pepole> allPepole = dalpepole.ReturnAllPepoleInList();
+            foreach(var pepole in allPepole)
+            {
+                if(pepole.NumMentions > 10)
+                {
+                    Console.WriteLine($"{pepole.FirstName} {pepole.LestName} he is dangerous");
+                    resulte = true;
+                }   
+            }
+            if (!resulte)
+            {
+                Console.WriteLine("No danger found.");
             }
         }
     }

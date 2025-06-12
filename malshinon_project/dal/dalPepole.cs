@@ -2,6 +2,7 @@
 using Mysqlx.Crud;
 using MySqlX.XDevAPI;
 using System;
+using System.Collections.Generic;
 namespace malshinon
 {
     public class DalPepole
@@ -156,7 +157,7 @@ namespace malshinon
         }
 
 
-        // מחזירה את כל השמות הסודיים של סוכן
+        // מחזירה את כל השמות הסודיים של סוכנים
         public List<string> ReturnAllOptionalAgentsSecretCode()
         {
             List<string> OptionalAgentsSecretCode = null;
@@ -184,10 +185,39 @@ namespace malshinon
             }
         }
 
+        public List<Pepole> ReturnAllPepoleInList()
+        {
+            List<Pepole> AllPepole = new List<Pepole>();
+            try
+            {
+                MySqlConnection conn = MYsql.GetConnection();
+                MySqlCommand cmd = new MySqlCommand($"SELECT * FROM pepole;", conn);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32("id");
+                    string firstName = reader.GetString("first_name");
+                    string lastName = reader.GetString("last_name");
+                    string secretCode = reader.GetString("secret_code");
+                    string type = reader.GetString("type");
+                    int numReports = reader.GetInt32("num_reports");
+                    int numMentions = reader.GetInt32("num_mentions");
+                    Pepole pepole = new Pepole(id, firstName, secretCode, lastName, type, numReports, numMentions);
+                    AllPepole.Add(pepole);
+                }
 
-
-
-
+                return AllPepole;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Error:{ex.Message}");
+                return AllPepole;
+            }
+            finally
+            {
+                MYsql.close();
+            }
+        }
     }
 }
 
