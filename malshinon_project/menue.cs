@@ -17,6 +17,7 @@ namespace malshinon
                 Console.WriteLine("To create an alert, press 1.\n" +
                     "To get all reports about target by fullname press 2\n" +
                     "To get all optiona lAgents secret name press 3. \n" +
+                    "To get all Dangerous targets press 4.\n" +
                     "To Exis, press 5.");
                 int coice = int.Parse(Console.ReadLine());
                 switch (coice)
@@ -110,7 +111,7 @@ namespace malshinon
                 $"{report}\n" +
                 $"On target:{target.FirstName} {target.LestName}");
         }
-
+        
 
 
         // מחזירה את כל ההתראות על אדם מסויים
